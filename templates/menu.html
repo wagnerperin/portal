@@ -1,0 +1,141 @@
+{% url 'home.views.index' as home %}
+{% url 'home.views.register' as register %}
+{% url 'home.views.editor' as editor %}
+
+{% block menu %}
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ home }}">Portal do Conhecimento</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="about.html">Sobre</a>
+                    </li>
+                    <li>
+                        <a href="services.html">Serviços</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contato</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editar <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ editor }}">Mapa Conceitual</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">iMap</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-3-col.html">VMap</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-4-col.html">MergeMaps</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-item.html">Outros.</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="blog-home-1.html">Blog Home 1</a>
+                            </li>
+                            <li>
+                                <a href="blog-home-2.html">Blog Home 2</a>
+                            </li>
+                            <li>
+                                <a href="blog-post.html">Blog Post</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Outras <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ register }}">Teste</a>
+                            </li>
+                            <li>
+                                <a href="sidebar.html">Sidebar Page</a>
+                            </li>
+                            <li>
+                                <a href="faq.html">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="404.html">404</a>
+                            </li>
+                            <li>
+                                <a href="pricing.html">Pricing Table</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown {% ifequal request.path '/register/' %}active{% endifequal %}">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="btEntrar">Entrar<b class="caret"></b></a>
+                     <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                        <li>
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <form class="form" role="form" method="post" action="#" accept-charset="UTF-8" id="login-nav">
+                                    <div class="form-group">
+                                       <label class="sr-only" for="username">Usuário</label>
+                                       <input type="text" class="form-control" id="fstusername" placeholder="Nome de Usuário" required>
+                                    </div>
+                                    <div class="form-group">
+                                       <label class="sr-only" for="password">Senha</label>
+                                       <input type="password" class="form-control" id="fstpassword" placeholder="Senha" required>
+                                    </div>
+                                    <div class="checkbox">
+                                       <label>
+                                       <input type="checkbox"> Lembrar
+                                       </label>
+                                    </div>
+                                    <div class="form-group">
+                                       <button type="button" class="btn btn-success btn-block" onclick="fstlogin();">Autenticar</button>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                           <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Entrar com Google">
+                           <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Entrar com Twitter">
+                           <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Entrar com Facebook">
+                        </li>
+                        <li class="divider"></li>
+                        <label>
+                                <p>Não é Cadastrado?</p>
+                        </label>
+                        <input class="btn btn-primary btn-block" type="button" id="btd-Registrar" value="Cadastrar" onclick="javascript:window.location.href='{{ register }}'">
+                     </ul>
+                  </li>
+                  <li class="dropdown ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/profile/">Perfil</a>
+                            </li>
+                            <li>
+                                <a href="/logout/">Sair</a>
+                            </li>                              
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    {% endblock %}
