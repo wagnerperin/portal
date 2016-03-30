@@ -11,3 +11,6 @@ def editor(request):
 
 def login(request):
     return render(request, 'home/login.html', {})
+
+def profile(request):
+    return render(request, 'home/profile.html', {})

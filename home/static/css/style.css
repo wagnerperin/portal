@@ -18,3 +18,7 @@
 .panel-body p {
     text-align: justify;
 }
+
+.navbar ul li a{
+    display: none;
+}
