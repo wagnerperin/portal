@@ -13,8 +13,8 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Título
-                    <small>Novo Mapa Conceitual</small>
+                <h1 class="page-header">Título: 
+                    <small><input type="text" id="mapTitle" value="Novo Mapa Conceitual" readonly></small> <a id="editLink" onclick="editTitle()"><span id="editIcone" class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                 </h1>
             </div>
         </div>
@@ -25,14 +25,6 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
                 <div id="myDiagram" class="editor"></div>
-                <p><i class="fa fa-clock-o"></i> Posted on August 28, 2013 at 10:00 PM</p>
-                <hr>
-                <div class="mapData">
-                    <p>Titulo do Mapa:</p>
-                    <input type="text" id="mapTitle"></input>
-                </div>
-                <button id="saveButton" type="submit" class="btn btn-default">Save</button>
-                <button id="loadButton" type="submit" class="btn btn-default">Load</button>
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
@@ -93,9 +85,6 @@
             </div>
 
         </div>
-        <!-- /.row -->
-
-        <hr>
 
     </div>
   <hr>

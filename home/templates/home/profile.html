@@ -6,19 +6,33 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="container">
     <div class="fb-profile">
         <div class="crop">
-            <img align="left" class="fb-image-lg" src="https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-xfp1/v/t1.0-9/12472779_961924760558217_4325901902294295760_n.jpg?oh=a9119ba2c41da7c18a59adbb7b68d7e3&oe=5797F98A&__gda__=1467790595_eda718f88276667d8fd9195c8db88a87" alt="Profile image example"/>
+            <img align="left" class="fb-image-lg" src="https://www.hastac.org/sites/default/files/styles/post_image/public/upload/images/post/ficampuses.png?itok=8UvSoswc" alt="Profile image example"/>
         </div>
-        <img align="left" class="fb-image-profile thumbnail" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xlp1/v/t1.0-1/p160x160/12924404_964843833599643_376561994072962367_n.jpg?oh=a95ca5512191f7cbf5e8fc42efce2bbd&oe=578040A4&__gda__=1468596650_b845653910b20b7deacc77305823bfb2" alt="Profile image example"/>
+        <img align="left" class="fb-image-profile thumbnail" id="imageProfile" alt="Profile image example"/>
         <div class="fb-profile-text">
             <h1 id="name"> </h1>
             <p id="usertag"> </p>
         </div>
+        <div id="timelineNav">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Perfil</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Mapas</a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Serviços</a></li>
+                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Buscar</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+        <div role="tabpanel" class="tab-pane" id="profile">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+        <div role="tabpanel" class="tab-pane" id="messages">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+        <div role="tabpanel" class="tab-pane" id="settings">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passage..</div>
     </div>
 </div> <!-- /container -->  
-    
 {% endblock %}
 
 {% block javascript %}

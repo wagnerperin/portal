@@ -202,3 +202,16 @@ CMPAAS.editor = function() {
 
 //var person = personClass();
 //person.
+
+function editConclusion()
+{
+    document.getElementById('mapTitle').readOnly=true;
+    document.getElementById('editIcone').className = "glyphicon glyphicon-pencil";
+    document.getElementById('editLink').onclick = function(){ editTitle(); } ;
+}
+
+function editTitle() {
+    document.getElementById('mapTitle').readOnly=false;
+    document.getElementById('editIcone').className = "glyphicon glyphicon-ok";
+    document.getElementById('editLink').onclick = function(){ editConclusion(); } ;
+};

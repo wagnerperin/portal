@@ -14,3 +14,6 @@ def login(request):
 
 def profile(request):
     return render(request, 'home/profile.html', {})
+    
+def about(request):
+    return render(request, 'home/about.html', {})

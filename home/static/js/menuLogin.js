@@ -33,7 +33,17 @@ function fstlogin(){
                 localStorage.setItem("email", data['email']);
             }      
         }).done(function(){
-            window.location = "/profile/";
+            $.ajax({
+                method: "GET",
+                url: "http://127.0.0.1:8000/api/user_profiles/"+localStorage.getItem("cmpaasid")+"/",
+                success: function(data){
+                    localStorage.setItem("image", data['image']);
+                }      
+            }).done(function(){
+                window.location = "/profile/";
+            }).fail(function(response){
+                console.log(response);
+            })
         }).fail(function(response){
             console.log(response);
         })
@@ -44,4 +54,9 @@ function logout()
 {
     localStorage.removeItem("token");
     localStorage.removeItem("cmpaasid");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("image");
 }
