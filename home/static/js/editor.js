@@ -214,4 +214,4 @@ function editTitle() {
     document.getElementById('mapTitle').readOnly=false;
     document.getElementById('editIcone').className = "glyphicon glyphicon-ok";
     document.getElementById('editLink').onclick = function(){ editConclusion(); } ;
-};
+}
