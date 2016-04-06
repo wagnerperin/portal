@@ -1,3 +1,15 @@
+$(document).ready(function(){
+    if(localStorage.getItem("token"))
+    {
+        document.getElementById('title').innerText = "Usuário Autenticado.";
+        document.getElementById('registerForm').innerHTML = "";
+        document.getElementById('result').innerHTML = "Aguarde! Você será redirecionado...";
+        window.setTimeout(function(){
+            window.location.href = "/profile/";
+        }, 5000);
+    }
+}); 
+
 function addNewUser() {
     var sd_first_name = document.getElementById('first_name').value;
     var sd_last_name = document.getElementById('last_name').value;
