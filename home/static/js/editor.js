@@ -1,3 +1,30 @@
+$("container").ready(function(){
+    if(localStorage.getItem("mapContentId") != null){
+        document.getElementById("mapTitle").value = localStorage.getItem("mapTitle");
+        document.getElementById("question").value = localStorage.getItem("mapQuestion");
+        document.getElementById("description").value = localStorage.getItem("mapDescrition");
+        
+        document.getElementById("btNewVersion").innerText = "Criar Nova Versão";
+        document.getElementById("btUpdateMap").disabled = false;
+        document.getElementById("btNewMap").disabled = false;
+        document.getElementById("btRemoveVersion").disabled = false;
+        document.getElementById("btRemoveMap").disabled = false;
+        
+        myDiagram.model = go.Model.fromJson(localStorage.getItem("mapContent"));
+    }
+    
+    if(localStorage.getItem("token") == null)
+    {
+        document.getElementById("information").innerHTML = "<strong>Informação:</strong> Faça <a href=\"/login/\"> login</a> para usar operações.";
+        document.getElementById("information").style.display = "inherit";
+    }else
+    {
+        document.getElementById("btNewVersion").disabled = false;
+    }
+      
+});
+
+
 CMPAAS = {};
 
 CMPAAS.editor = function() {
@@ -273,6 +300,11 @@ function saveMap(){
                 localStorage.setItem("mapContentIdMap", data['map']);
                 document.getElementById("information").innerHTML = "Mapa criado em> " + data['created_date'];
                 document.getElementById("information").style.display = "inherit";
+                document.getElementById("btNewVersion").innerText = "Criar Nova Versão";
+                document.getElementById("btUpdateMap").disabled = false;
+                document.getElementById("btNewMap").disabled = false;
+                document.getElementById("btRemoveVersion").disabled = false;
+                document.getElementById("btRemoveMap").disabled = false;
             },      
             data: JSON.stringify(sendInfo)
         }).fail(function(response){
@@ -281,4 +313,17 @@ function saveMap(){
         })
         
     });
+}
+
+function newMap(){
+    localStorage.removeItem("mapContent");
+    localStorage.removeItem("mapContentCreatedDate");
+    localStorage.removeItem("mapContentId");
+    localStorage.removeItem("mapContentIdMap");
+    localStorage.removeItem("mapCreatedDate");
+    localStorage.removeItem("mapDescrition");
+    localStorage.removeItem("mapId");
+    localStorage.removeItem("mapQuestion");
+    localStorage.removeItem("mapTitle");
+    location.reload();    
 }

@@ -51,7 +51,14 @@ function login(){
                     localStorage.setItem("image", data['image']);
                 }      
             }).done(function(){
-                window.location = "/profile/";
+                if(document.referrer == "http://127.0.0.1/editor/")
+                {
+                    window.location = "/editor/";
+                }else
+                {
+                    window.location = "/profile/";
+                }
+                
             }).fail(function(response){
                 console.log(response);
             })

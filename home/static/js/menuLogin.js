@@ -52,11 +52,5 @@ function fstlogin(){
 
 function logout()
 {
-    localStorage.removeItem("token");
-    localStorage.removeItem("cmpaasid");
-    localStorage.removeItem("first_name");
-    localStorage.removeItem("last_name");
-    localStorage.removeItem("username");
-    localStorage.removeItem("email");
-    localStorage.removeItem("image");
+    localStorage.clear();
 }
