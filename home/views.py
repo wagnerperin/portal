@@ -17,3 +17,9 @@ def profile(request):
     
 def about(request):
     return render(request, 'home/about.html', {})
+
+def services(request):
+    return render(request, 'home/services.html', {})
+
+def underconstruction(request):
+    return render(request, 'home/underconstruction.html', {})

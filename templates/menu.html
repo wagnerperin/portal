@@ -2,6 +2,7 @@
 {% url 'home.views.register' as register %}
 {% url 'home.views.editor' as editor %}
 {% url 'home.views.about' as about %}
+{% url 'home.views.services' as services %}
 
 {% block menu %}
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -22,8 +23,8 @@
                     <li class="{% ifequal request.path '/about/' %}active{% endifequal %}">
                         <a href="{{ about }}" id="mnSobre">Sobre</a>
                     </li>
-                    <li>
-                        <a href="services.html" id="mnServiços">Serviços</a>
+                    <li class="{% ifequal request.path '/services/' %}active{% endifequal %}">
+                        <a href="{{ services }}" id="mnServiços">Serviços</a>
                     </li>
                     <li>
                         <a href="contact.html" id="mnContato">Contato</a>
@@ -35,33 +36,20 @@
                                 <a href="{{ editor }}" id="mnMapaConceitual">Mapa Conceitual</a>
                             </li>
                             <li>
-                                <a href="portfolio-2-col.html" id="mniMap">iMap</a>
+                                <a href="/underconstruction/" id="mniMap">iMap</a>
                             </li>
                             <li>
-                                <a href="portfolio-3-col.html" id="mnVMap">VMap</a>
+                                <a href="/underconstruction/" id="mnVMap">VMap</a>
                             </li>
                             <li>
-                                <a href="portfolio-4-col.html" id="mnMergeMaps">MergeMaps</a>
+                                <a href="/underconstruction/" id="mnMergeMaps">MergeMaps</a>
                             </li>
                             <li>
-                                <a href="portfolio-item.html" id="mnOutros">Outros.</a>
+                                <a href="/underconstruction/" id="mnOutros">Outros.</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="blog-home-1.html">Blog Home 1</a>
-                            </li>
-                            <li>
-                                <a href="blog-home-2.html">Blog Home 2</a>
-                            </li>
-                            <li>
-                                <a href="blog-post.html">Blog Post</a>
-                            </li>
-                        </ul>
-                    </li>
+                    
                     <li class="dropdown ">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Outras <b class="caret"></b></a>
                         <ul class="dropdown-menu">

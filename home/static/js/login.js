@@ -6,7 +6,7 @@ $(document).ready(function(){
         document.getElementById('result').innerHTML = "Aguarde! Você será redirecionado...";
         window.setTimeout(function(){
             window.location.href = "/profile/";
-        }, 5000);
+        }, 2500);
     }
 }); 
 
