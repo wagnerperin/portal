@@ -3,6 +3,7 @@
 {% url 'home.views.editor' as editor %}
 {% url 'home.views.about' as about %}
 {% url 'home.views.services' as services %}
+{% url 'home.views.contact' as contact %}
 
 {% block menu %}
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -27,7 +28,7 @@
                         <a href="{{ services }}" id="mnServiços">Serviços</a>
                     </li>
                     <li>
-                        <a href="contact.html" id="mnContato">Contato</a>
+                        <a href="{{ contact }}" id="mnContato">Contato</a>
                     </li>
                     <li class="dropdown {% ifequal request.path '/editor/' %}active{% endifequal %}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="mnEditar">Editar <b class="caret"></b></a>

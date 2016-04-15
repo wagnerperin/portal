@@ -23,3 +23,6 @@ def services(request):
 
 def underconstruction(request):
     return render(request, 'home/underconstruction.html', {})
+
+def contact(request):
+    return render(request, 'home/contact.html', {})
