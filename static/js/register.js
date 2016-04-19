@@ -1,3 +1,15 @@
+$(document).ready(function(){
+    if(localStorage.getItem("token"))
+    {
+        document.getElementById('title').innerText = "Usuário Autenticado.";
+        document.getElementById('registerForm').innerHTML = "";
+        document.getElementById('result').innerHTML = "Aguarde! Você será redirecionado...";
+        window.setTimeout(function(){
+            window.location.href = "/profile/";
+        }, 5000);
+    }
+}); 
+
 function addNewUser() {
     var sd_first_name = document.getElementById('first_name').value;
     var sd_last_name = document.getElementById('last_name').value;
@@ -12,7 +24,7 @@ function addNewUser() {
     };
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:8000/api/users/",
+        url: "http://platform.cmpaas.inf.ufes.br:8000/api/users/",
         dataType: "json",
         contentType: 'application/json; charset=UTF-8', // This is the money shot
         Authorization: "Token 03b0bdcaa6b50c59e54b4dba4da461935aef84eb",

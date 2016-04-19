@@ -6,7 +6,7 @@ $(document).ready(function(){
         document.getElementById('result').innerHTML = "Aguarde! Você será redirecionado...";
         window.setTimeout(function(){
             window.location.href = "/profile/";
-        }, 5000);
+        }, 2500);
     }
 }); 
 
@@ -21,7 +21,7 @@ function login(){
     $.when(
         $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:8000/api/token-auth/",
+            url: "http://platform.cmpaas.inf.ufes.br:8000/api/token-auth/",
             dataType: "json",
             accept: "application/json",
             contentType: "application/json; charset=UTF-8", // This is the money shot
@@ -36,7 +36,7 @@ function login(){
    ).then(function(){
        $.ajax({
             method: "GET",
-            url: "http://127.0.0.1:8000/api/users/"+localStorage.getItem("cmpaasid")+"/",
+            url: "http://platform.cmpaas.inf.ufes.br:8000/api/users/"+localStorage.getItem("cmpaasid")+"/",
             success: function(data){
                 localStorage.setItem("first_name", data['first_name']);
                 localStorage.setItem("last_name", data['last_name']);
@@ -44,10 +44,26 @@ function login(){
                 localStorage.setItem("email", data['email']);
             }      
         }).done(function(){
-            window.location = "/profile/";
+            $.ajax({
+                method: "GET",
+                url: "http://platform.cmpaas.inf.ufes.br:8000/api/user_profiles/"+localStorage.getItem("cmpaasid")+"/",
+                success: function(data){
+                    localStorage.setItem("image", data['image']);
+                }      
+            }).done(function(){
+                if(document.referrer == "http://portal.cmpaas.inf.ufes.br/editor/")
+                {
+                    window.location = "/editor/";
+                }else
+                {
+                    window.location = "/profile/";
+                }
+                
+            }).fail(function(response){
+                console.log(response);
+            })
         }).fail(function(response){
             console.log(response);
         })
    });                             
-}          
-
+}

@@ -53,10 +53,23 @@
                             <input type="text" class="form-control" id="username" required data-validation-required-message="Por favor, informe o nome de usuário desejado.">
                         </div>
                     </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Senha:</label>
+                            <input type="password" class="form-control" id="password" required data-validation-required-message="Por favor, informe sua senha.">
+                        </div>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Repetir Senha:</label>
+                            <input type="password" class="form-control" id="passwordRepeated" required data-validation-required-message="Por favor, repita a senha.">
+                        </div>
+                    </div>
                     
                     <div id="success"></div>
                     <!-- For success/fail messages -->
                     <button class="btn btn-primary" onclick="addNewUser();">Cadastrar</button>
+                    <button type="reset" class="btn btn-danger">Limpar</button>
                     
                 </form>
                 <p id="result"></p>

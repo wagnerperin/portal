@@ -1,3 +1,30 @@
+$("container").ready(function(){
+    if(localStorage.getItem("mapContentId") != null){
+        document.getElementById("mapTitle").value = localStorage.getItem("mapTitle");
+        document.getElementById("question").value = localStorage.getItem("mapQuestion");
+        document.getElementById("description").value = localStorage.getItem("mapDescrition");
+        
+        document.getElementById("btNewVersion").innerText = "Criar Nova Versão";
+        document.getElementById("btUpdateMap").disabled = false;
+        document.getElementById("btNewMap").disabled = false;
+        document.getElementById("btRemoveVersion").disabled = false;
+        document.getElementById("btRemoveMap").disabled = false;
+        
+        myDiagram.model = go.Model.fromJson(localStorage.getItem("mapContent"));
+    }
+    
+    if(localStorage.getItem("token") == null)
+    {
+        document.getElementById("information").innerHTML = "<strong>Informação:</strong> Faça <a href=\"/login/\"> login</a> para usar operações.";
+        document.getElementById("information").style.display = "inherit";
+    }else
+    {
+        document.getElementById("btNewVersion").disabled = false;
+    }
+      
+});
+
+
 CMPAAS = {};
 
 CMPAAS.editor = function() {
@@ -202,3 +229,101 @@ CMPAAS.editor = function() {
 
 //var person = personClass();
 //person.
+
+function editConclusion()
+{
+    document.getElementById('mapTitle').readOnly=true;
+    document.getElementById('editIcone').className = "glyphicon glyphicon-pencil";
+    document.getElementById('editLink').onclick = function(){ editTitle(); } ;
+}
+
+function editTitle() {
+    document.getElementById('mapTitle').readOnly=false;
+    document.getElementById('editIcone').className = "glyphicon glyphicon-ok";
+    document.getElementById('editLink').onclick = function(){ editConclusion(); } ;
+}
+
+function saveMap(){
+        var sd_mapTitle = document.getElementById('mapTitle').value;
+        var sd_mapQuestion = document.getElementById('question').value;
+        var sd_mapDescription = document.getElementById('description').value;
+        var sd_mapAuthor;
+        if(localStorage.getItem("cmpaasid")){
+            sd_mapAuthor =localStorage.getItem("cmpaasid");
+        }else{
+            sd_mapAuthor = 1;
+        }
+        
+        
+        var sendInfo = {
+            title: sd_mapTitle,
+            question: sd_mapQuestion,
+            description: sd_mapDescription,
+            author: sd_mapAuthor
+        };
+    $.when(
+        $.ajax({
+            type: "POST",
+            url: "http://platform.cmpaas.inf.ufes.br:8000/api/maps/",
+            dataType: "json",
+            accept: "application/json",
+            contentType: "application/json; charset=UTF-8", // This is the money shot
+            success: function(data){
+                localStorage.setItem("mapId", data['id']);
+                localStorage.setItem("mapTitle", data['title']);
+                localStorage.setItem("mapQuestion", data['question']);
+                localStorage.setItem("mapDescrition", data['description']);
+                localStorage.setItem("mapCreatedDate", data['created_date']);
+            },      
+            data: JSON.stringify(sendInfo)
+        }).fail(function(response){
+
+        })
+    ).then(function(){
+        var sd_mapId = localStorage.getItem("mapId");
+        var sd_mapContent = myDiagram.model.toJson();
+        
+        sendInfo = {
+            map: sd_mapId,
+            content: sd_mapContent
+        }
+        $.ajax({
+            type: "POST",
+            url: "http://platform.cmpaas.inf.ufes.br:8000/api/mapcontents/",
+            dataType: "json",
+            accept: "application/json",
+            contentType: "application/json; charset=UTF-8", // This is the money shot
+            success: function(data){
+                localStorage.setItem("mapContentId", data['id']);
+                localStorage.setItem("mapContent", data['content']);
+                localStorage.setItem("mapContentCreatedDate", data['created_date']);
+                localStorage.setItem("mapContentIdMap", data['map']);
+                document.getElementById("information").innerHTML = "Mapa criado em> " + data['created_date'];
+                document.getElementById("information").style.display = "inherit";
+                document.getElementById("btNewVersion").innerText = "Criar Nova Versão";
+                document.getElementById("btUpdateMap").disabled = false;
+                document.getElementById("btNewMap").disabled = false;
+                document.getElementById("btRemoveVersion").disabled = false;
+                document.getElementById("btRemoveMap").disabled = false;
+            },      
+            data: JSON.stringify(sendInfo)
+        }).fail(function(response){
+            document.getElementById("information").innerHTML = "Erro ao salvar o Mapa";
+            document.getElementById("information").style.display = "inherit";
+        })
+        
+    });
+}
+
+function newMap(){
+    localStorage.removeItem("mapContent");
+    localStorage.removeItem("mapContentCreatedDate");
+    localStorage.removeItem("mapContentId");
+    localStorage.removeItem("mapContentIdMap");
+    localStorage.removeItem("mapCreatedDate");
+    localStorage.removeItem("mapDescrition");
+    localStorage.removeItem("mapId");
+    localStorage.removeItem("mapQuestion");
+    localStorage.removeItem("mapTitle");
+    location.reload();    
+}

@@ -29,6 +29,10 @@ header.carousel {
     height: 50%;
 }
 
+.panel:hover{
+    background-color: #F5F5F5;
+}
+
 header.carousel .item,
 header.carousel .item.active,
 header.carousel .carousel-inner {
@@ -71,6 +75,17 @@ header.carousel .fill {
 
 footer {
     margin: 50px 0;
+}
+
+.thumbnail:hover{
+    border-color: #C7CACA;
+    background-color: #F5F5F5;
+    
+}
+
+.hoverEfect:hover{
+    border-color: #C7CACA;
+    background-color: #F5F5F5;
 }
 
 /* Responsive Styles */

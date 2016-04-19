@@ -264,7 +264,7 @@ function saveMap(){
     $.when(
         $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:8000/api/maps/",
+            url: "http://platform.cmpaas.inf.ufes.br:8000/api/maps/",
             dataType: "json",
             accept: "application/json",
             contentType: "application/json; charset=UTF-8", // This is the money shot
@@ -289,7 +289,7 @@ function saveMap(){
         }
         $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:8000/api/mapcontents/",
+            url: "http://platform.cmpaas.inf.ufes.br:8000/api/mapcontents/",
             dataType: "json",
             accept: "application/json",
             contentType: "application/json; charset=UTF-8", // This is the money shot
