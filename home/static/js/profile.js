@@ -41,10 +41,12 @@ function loadMaps(){
                     newCell.appendChild(newText);
                     
                     newCell  = newRow.insertCell(2);
+                    newCell.setAttribute("class", "hidden-xs");
                     newText  = document.createTextNode(entry['question']);
                     newCell.appendChild(newText);
                     
                     newCell  = newRow.insertCell(3);
+                    newCell.setAttribute("class", "hidden-xs");
                     newText  = document.createTextNode(entry['created_date']);
                     newCell.appendChild(newText);
                     
