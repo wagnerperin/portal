@@ -14,6 +14,17 @@ recursiveGetProperty(data, 'results', function(obj) {
             document.getElementById("maps").innerHTML += obj["title"] + "<br/>";
     });
 */
+
+function list(id) {
+        if($($(id).data("target")).hasClass("out")) {
+            $($(id).data("target")).addClass("in");
+            $($(id).data("target")).removeClass("out");
+        } else {
+            $($(id).data("target")).addClass("out");
+            $($(id).data("target")).removeClass("in");
+        }
+}
+
 function loadMaps(){
     $.ajax({
             type: "GET",
@@ -69,6 +80,23 @@ function loadMaps(){
                     newCell = newRow.insertCell(5);
                     a = document.createElement('a');
                     linkText = document.createElement('em');
+                    linkText.setAttribute("class", "fa fa-list");
+                    a.appendChild(linkText);
+                    a.title = "Listar Versões";
+                    a.href = "#";
+                    a.setAttribute("id", "bt"+entry['id']);
+                    a.setAttribute('onclick','list(this.id);'); // for FF
+                    a.onclick = function() {list(this.id);}; // for IE
+                    a.setAttribute("type","button");
+                    a.setAttribute("class", "btn btn-default");
+                    a.setAttribute("data-toggle", "collapse");
+                    a.setAttribute("data-target", "#collapsemap"+entry['id']);
+                    newCell.appendChild(a);
+                    
+                    /* IMPLEMENTAR A BUSCA PELAS VERSÕES
+                    newCell = newRow.insertCell(5);
+                    a = document.createElement('a');
+                    linkText = document.createElement('em');
                     linkText.setAttribute("class", "fa fa-pencil");
                     a.appendChild(linkText);
                     a.title = "Editar";
@@ -83,8 +111,29 @@ function loadMaps(){
                     a.title = "Excluir";
                     a.href = "#";
                     a.setAttribute("class", "btn btn-danger");
+                    newCell.appendChild(a);  
+                    */
+                    
+                    //Ultima linha.
+                    newRow = tableRef.insertRow(tableRef.rows.length);
+                    newRow.setAttribute("class", "collapse out");
+                    newRow.setAttribute("id", "collapsemap"+entry['id']);
+                    
+                    newCell  = newRow.insertCell(0);
+                    newCell.setAttribute("colspan", "5")
+                    newText  = document.createTextNode("Crie uma nova Versão");
+                    newCell.appendChild(newText);
+                    
+                    newCell = newRow.insertCell(1);
+                    a = document.createElement('a');
+                    linkText = document.createElement('em');
+                    linkText.setAttribute("class", "fa fa-plus");
+                    a.appendChild(linkText);
+                    a.title = "Criar";
+                    a.href = "#";
+                    a.setAttribute("class", "btn btn-primary");
                     newCell.appendChild(a);
-                                   
+           
                     
                 });              
             }  

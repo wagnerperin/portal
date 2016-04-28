@@ -27,7 +27,7 @@
                     <li class="{% ifequal request.path '/services/' %}active{% endifequal %}">
                         <a href="{{ services }}" id="mnServiços">Serviços</a>
                     </li>
-                    <li>
+                    <li class="{% ifequal request.path '/contact/' %}active{% endifequal %}">
                         <a href="{{ contact }}" id="mnContato">Contato</a>
                     </li>
                     <li class="dropdown {% ifequal request.path '/editor/' %}active{% endifequal %}">

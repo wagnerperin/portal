@@ -13,7 +13,7 @@ $("menuContainer").ready(function(){
     //Opções para Usuários autenticados
     if(localStorage.getItem("token"))
     {
-        document.getElementById("mnMenu").innerHTML = "<span class=\"glyphicon glyphicon-user\"></span>" + " " + localStorage.getItem("first_name");
+        document.getElementById("mnMenu").innerHTML = "<span class=\"glyphicon glyphicon-user\"></span>" + " " + localStorage.getItem("first_name") + " <b class=\"caret\"></b>";
         document.getElementById("mnMenu").style.display = "inherit";
         document.getElementById("mnPerfil").style.display = "inherit";
         document.getElementById("mnSair").style.display = "inherit";
