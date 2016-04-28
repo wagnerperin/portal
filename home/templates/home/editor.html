@@ -58,13 +58,25 @@
                             </div>
                             <p id="information" style="display: none;">
                         </div>
-                        
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 form-group">
+                                <button type="button" class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo2">Opções para CMapTools</button>
+                            </div>
+                            <div id="demo2" class="collapse">
+                            <div class="col-xs-12 col-md-12 form-group">
+                                <p>Importar arquivo CXL</p>
+                                <input class="form-control btn-block" id="cmapFile" name="cmapFile" placeholder="Selecione o Arquivo" type="file"/> <br />
+                                <button type="button" class="btn btn-warning btn-block" id="btExportToCMap" onclick="exportToCMap();">Exportar</button>
+                            </div>
+                            </div>
+                            <p id="information" style="display: none;">
+                        </div>
                            
                         </p>
                     </form>
                 </div>
 
-            </div> 
+            </div>
         </div>
         <hr> 
 {% endblock %}
@@ -72,4 +84,5 @@
 {% block javascript %}
   <script src="/static/js/go.js"></script>
   <script src="/static/js/editor.js"></script>
+  <script src="/static/js/cmaptools.js"></script>
 {% endblock %}
