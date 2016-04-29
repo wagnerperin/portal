@@ -15,14 +15,145 @@ recursiveGetProperty(data, 'results', function(obj) {
     });
 */
 
+function loadMap(mapId){
+    $.ajax({
+            type: "GET",
+            url: "http://platform.cmpaas.inf.ufes.br:8000/api/mapcontents/"+mapId+"/",
+            dataType: "json",
+            contentType: 'application/json; charset=UTF-8', // This is the money shot
+            success: function(data){
+                localStorage.setItem("mapContentId", data['id']);
+                localStorage.setItem("mapContent", data['content']);
+                
+                window.location.href = "/editor/";
+                
+            }  
+        }).fail(function(response){
+            document.getElementById("maps").innerHTML = "Erro ao Carregar Mapas";
+        });
+}
+
+function populateDiv(mapId){
+    
+    $.ajax({
+            type: "GET",
+            url: "http://platform.cmpaas.inf.ufes.br:8000/api/mapversions/"+mapId+"/",
+            dataType: "json",
+            contentType: 'application/json; charset=UTF-8', // This is the money shot
+            success: function(data){
+                var divTable = document.getElementById("divList"+mapId);
+                divTable.innerHTML = "";
+                var table = document.createElement('table');
+                var newRow;
+                var newCell;
+                var th;
+                var vet = data['results'];
+                table.setAttribute("class", "table table-striped table-bordered table-list text-center");
+                table.setAttribute("id", "tableList"+mapId);
+                
+                var tableHead = document.createElement('thead');
+                
+                var heading = new Array();
+                    heading[0] = "Mapa";
+                    heading[1] = "ID da Versão";
+                    heading[2] = "Data de Criação";
+                
+                newRow = tableHead.insertRow(tableHead.rows.length);
+                        
+                for (i = 0; i < heading.length; i++) {
+                    th = document.createElement('th');
+                    th.setAttribute("class", "text-center");
+                    th.appendChild(document.createTextNode(heading[i]));
+                    newRow.appendChild(th);
+                }
+                
+                th = document.createElement('th');
+                th.setAttribute("class", "text-center");
+                var em = document.createElement('em');
+                em.setAttribute("class","fa fa-cog");
+                th.appendChild(em);
+                newRow.appendChild(th);
+                
+                table.appendChild(tableHead);
+                
+                var tableBody = document.createElement('tbody');
+                
+                vet.forEach(function(entry){
+                    newRow = tableBody.insertRow(tableBody.rows.length);
+                    
+                    newCell = newRow.insertCell(0);
+                    newText = document.createTextNode(entry['map']);
+                    newCell.appendChild(newText);
+                    
+                    newCell = newRow.insertCell(1);
+                    newText = document.createTextNode(entry['id']);
+                    newCell.appendChild(newText);
+                    
+                    newCell = newRow.insertCell(2);
+                    newText = document.createTextNode(entry['created_date']);
+                    newCell.appendChild(newText);
+                    
+                    newCell = newRow.insertCell(3);
+                    a = document.createElement('a');
+                    linkText = document.createElement('em');
+                    linkText.setAttribute("class", "fa fa-pencil");
+                    a.appendChild(linkText);
+                    a.title = "Editar";
+                    a.href = "#";
+                    a.setAttribute("class", "btn btn-default");
+                    a.setAttribute('onclick','loadMap('+entry['id']+');'); // for FF
+                    a.onclick = function() {loadMap(entry['id']);}; // for IE
+                    newCell.appendChild(a);
+                    
+                    a = document.createElement('a');
+                    linkText = document.createElement('em');
+                    linkText.setAttribute("class", "fa fa-trash");
+                    a.appendChild(linkText);
+                    a.title = "Excluir";
+                    a.href = "#";
+                    a.setAttribute("class", "btn btn-danger");
+                    newCell.appendChild(a); 
+                    
+                });
+                
+                newRow = tableBody.insertRow(tableBody.rows.length);
+                newCell = newRow.insertCell(0);
+                newText = document.createTextNode(mapId);
+                newCell.appendChild(newText);
+                
+                newCell = newRow.insertCell(1);
+                newCell.setAttribute("colspan","2");
+                newText = document.createTextNode("Crie uma Nova Versão");
+                newCell.appendChild(newText);
+                
+                newCell = newRow.insertCell(2);
+                a = document.createElement('a');
+                linkText = document.createElement('em');
+                linkText.setAttribute("class", "fa fa-plus");
+                a.appendChild(linkText);
+                a.title = "Criar";
+                a.href = "#";
+                a.setAttribute("class", "btn btn-primary");
+                newCell.appendChild(a);
+                
+                
+                table.appendChild(tableBody);
+                divTable.appendChild(table);           
+            }  
+        }).fail(function(response){
+            document.getElementById("maps").innerHTML = "Erro ao Carregar Mapas";
+        });
+}
+
 function list(id) {
-        if($($(id).data("target")).hasClass("out")) {
-            $($(id).data("target")).addClass("in");
-            $($(id).data("target")).removeClass("out");
-        } else {
-            $($(id).data("target")).addClass("out");
-            $($(id).data("target")).removeClass("in");
-        }
+    populateDiv(id.replace("bt",""));
+    if($($(id).data("target")).hasClass("out")) {
+        $($(id).data("target")).addClass("in");
+        $($(id).data("target")).removeClass("out");
+    } else {
+        $($(id).data("target")).addClass("out");
+        $($(id).data("target")).removeClass("in");
+    }
 }
 
 function loadMaps(){
@@ -36,6 +167,7 @@ function loadMaps(){
                 var newRow;
                 var newCell;
                 var newText;
+                var newDiv;
                 var a;
                 var linkText;
                 var vet = data['results'];
@@ -92,49 +224,18 @@ function loadMaps(){
                     a.setAttribute("data-toggle", "collapse");
                     a.setAttribute("data-target", "#collapsemap"+entry['id']);
                     newCell.appendChild(a);
-                    
-                    /* IMPLEMENTAR A BUSCA PELAS VERSÕES
-                    newCell = newRow.insertCell(5);
-                    a = document.createElement('a');
-                    linkText = document.createElement('em');
-                    linkText.setAttribute("class", "fa fa-pencil");
-                    a.appendChild(linkText);
-                    a.title = "Editar";
-                    a.href = "#";
-                    a.setAttribute("class", "btn btn-default");
-                    newCell.appendChild(a);
-                    
-                    a = document.createElement('a');
-                    linkText = document.createElement('em');
-                    linkText.setAttribute("class", "fa fa-trash");
-                    a.appendChild(linkText);
-                    a.title = "Excluir";
-                    a.href = "#";
-                    a.setAttribute("class", "btn btn-danger");
-                    newCell.appendChild(a);  
-                    */
-                    
-                    //Ultima linha.
+     
                     newRow = tableRef.insertRow(tableRef.rows.length);
                     newRow.setAttribute("class", "collapse out");
                     newRow.setAttribute("id", "collapsemap"+entry['id']);
                     
                     newCell  = newRow.insertCell(0);
-                    newCell.setAttribute("colspan", "5")
-                    newText  = document.createTextNode("Crie uma nova Versão");
-                    newCell.appendChild(newText);
+                    newCell.setAttribute("colspan", "6")
                     
-                    newCell = newRow.insertCell(1);
-                    a = document.createElement('a');
-                    linkText = document.createElement('em');
-                    linkText.setAttribute("class", "fa fa-plus");
-                    a.appendChild(linkText);
-                    a.title = "Criar";
-                    a.href = "#";
-                    a.setAttribute("class", "btn btn-primary");
-                    newCell.appendChild(a);
-           
+                    newDiv = document.createElement("div");
+                    newDiv.id = "divList"+entry['id'];
                     
+                    newCell.appendChild(newDiv);
                 });              
             }  
         }).fail(function(response){

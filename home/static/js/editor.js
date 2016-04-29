@@ -24,7 +24,36 @@ $("container").ready(function(){
       
 });
 
+//Persistência local dos mapas não salvos.
+$("#myDiagram").mouseleave(function() {
+    localStorage.setItem('unsavedData',myDiagram.model.toJson());
+    localStorage.setItem('unsaved',true);
+    
+});
 
+//Caso o usuário tenha deixado o editor sem salvar o mapa.
+$(document).ready(function(){
+    if(localStorage.getItem('unsaved')){
+      myDiagram.model = go.Model.fromJson(localStorage.getItem('unsavedData'));
+      localStorage.setItem('unsaved',false);
+    }
+});
+
+/*
+$("myDiagram").mouseleave(function() {
+            localStorage.setItem('unsavedData',myDiagram.model.toJson());
+            localStorage.setItem('unsaved',true);
+        });
+
+        $(document).ready(function(){
+            if(localStorage.getItem('unsaved')){
+            alert("Mapa recarredado.");
+            myDiagram.model = go.Model.fromJson(localStorage.getItem(unsavedData));
+            localStorage.setItem('unsaved',false);
+            }
+        });
+
+*/
 CMPAAS = {};
 
 CMPAAS.editor = function() {
@@ -182,53 +211,7 @@ CMPAAS.editor = function() {
 (function() {
   var editor = CMPAAS.editor();
   editor.init();
-
-  $('#saveButton').click(function(){
-    editor.save();
-  });
-
-  $('#loadButton').click(function(){
-    editor.load();
-  });
-    
 })();
-
-// var person = { name: 'Rodolfo', lastName: 'Spalenza', fullName: function() { return this.name + ' ' + this.lastName; } };
-
-// var personClass = function() { 
-//   var public = {}, 
-//   firstName, lastName;
-
-//   public.setFirstName = function(value) {
-//     this.firstName = value; 
-//   };
-
-//   public.setLastName = function(value) {
-//     this.lastName = value; 
-//   };
-
-//   public.fullName = function() {
-//     return this.firstName + ' ' + this.lastName;
-//   };
-
-//   public.save = function() {
-//     $.ajax(function() {
-//       url: '/editor',
-//       method: 'POST',
-//       data: { fullName: fullName() }
-//       // envia para o servidor para salvar; 
-//     }).done(function(data) { 
-//     }); 
-//   }
-
-//   function xpto() { 
-//   };
-
-//   return public;
-// };
-
-//var person = personClass();
-//person.
 
 function editConclusion()
 {
@@ -325,5 +308,9 @@ function newMap(){
     localStorage.removeItem("mapId");
     localStorage.removeItem("mapQuestion");
     localStorage.removeItem("mapTitle");
+    if(localStorage.getItem('unsaved')){
+      localStorage.setItem('unsaved', false);
+      localStorage.removeItem('unsavedData');
+    }
     location.reload();    
 }
