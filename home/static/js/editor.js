@@ -5,12 +5,20 @@ $("container").ready(function(){
         document.getElementById("description").value = localStorage.getItem("mapDescrition");
         
         document.getElementById("btNewVersion").innerText = "Criar Nova Versão";
+        document.getElementById("btNewVersion").disabled = false;
         document.getElementById("btUpdateMap").disabled = false;
         document.getElementById("btNewMap").disabled = false;
         document.getElementById("btRemoveVersion").disabled = false;
         document.getElementById("btRemoveMap").disabled = false;
         
         myDiagram.model = go.Model.fromJson(localStorage.getItem("mapContent"));
+        
+        if(localStorage.getItem('unsaved')){
+          myDiagram.model = go.Model.fromJson(localStorage.getItem('unsavedData'));
+          localStorage.setItem('unsaved',false);
+          document.getElementById("information").innerHTML = "<strong>Informação:</strong> Existem mudanças alterações não salvas.";
+          document.getElementById("information").style.display = "inherit";
+        }
     }
     
     if(localStorage.getItem("token") == null)
@@ -29,14 +37,6 @@ $("#myDiagram").mouseleave(function() {
     localStorage.setItem('unsavedData',myDiagram.model.toJson());
     localStorage.setItem('unsaved',true);
     
-});
-
-//Caso o usuário tenha deixado o editor sem salvar o mapa.
-$(document).ready(function(){
-    if(localStorage.getItem('unsaved')){
-      myDiagram.model = go.Model.fromJson(localStorage.getItem('unsavedData'));
-      localStorage.setItem('unsaved',false);
-    }
 });
 
 /*

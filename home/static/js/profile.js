@@ -25,6 +25,24 @@ function loadMap(mapId){
                 localStorage.setItem("mapContentId", data['id']);
                 localStorage.setItem("mapContent", data['content']);
                 
+                $.ajax({
+                    type: "GET",
+                    url: "http://platform.cmpaas.inf.ufes.br:8000/api/maps/"+data['map']+"/",
+                    dataType: "json",
+                    contentType: 'application/json; charset=UTF-8', // This is the money shot
+                    success: function(results){
+                        localStorage.setItem("mapTitle", results['title']);
+                        localStorage.setItem("mapQuestion", results['question']);
+                        localStorage.setItem("mapDescription", results['description']);
+                        
+                    }  
+                }).fail(function(response){
+                    document.getElementById("maps").innerHTML = "Erro ao Carregar Mapas";
+                });
+                
+                localStorage.setItem('unsaved', false);
+                localStorage.removeItem('unsavedData');
+                
                 window.location.href = "/editor/";
                 
             }  
