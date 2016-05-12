@@ -3,16 +3,16 @@ $("container").ready(function(){
         document.getElementById("mapTitle").value = localStorage.getItem("mapTitle");
         document.getElementById("question").value = localStorage.getItem("mapQuestion");
         document.getElementById("description").value = localStorage.getItem("mapDescrition");
-        
+
         document.getElementById("btNewVersion").innerText = "Criar Nova Versão";
         document.getElementById("btNewVersion").disabled = false;
         document.getElementById("btUpdateMap").disabled = false;
         document.getElementById("btNewMap").disabled = false;
         document.getElementById("btRemoveVersion").disabled = false;
         document.getElementById("btRemoveMap").disabled = false;
-        
+
         myDiagram.model = go.Model.fromJson(localStorage.getItem("mapContent"));
-        
+
         if(localStorage.getItem('unsaved')){
           myDiagram.model = go.Model.fromJson(localStorage.getItem('unsavedData'));
           localStorage.setItem('unsaved',false);
@@ -20,7 +20,7 @@ $("container").ready(function(){
           document.getElementById("information").style.display = "inherit";
         }
     }
-    
+
     if(localStorage.getItem("token") == null)
     {
         document.getElementById("information").innerHTML = "<strong>Informação:</strong> Faça <a href=\"/login/\"> login</a> para usar operações.";
@@ -29,14 +29,14 @@ $("container").ready(function(){
     {
         document.getElementById("btNewVersion").disabled = false;
     }
-      
+
 });
 
 //Persistência local dos mapas não salvos.
 $("#myDiagram").mouseleave(function() {
     localStorage.setItem('unsavedData',myDiagram.model.toJson());
     localStorage.setItem('unsaved',true);
-    
+
 });
 
 /*
@@ -59,7 +59,7 @@ CMPAAS = {};
 CMPAAS.editor = function() {
   var public = {};
 
-  public.init = function() { 
+  public.init = function() {
     var $$ = go.GraphObject.make;  // for conciseness in defining templates
     var yellowgrad = $$(go.Brush, go.Brush.Linear, { 0: "rgb(254, 201, 0)", 1: "rgb(254, 162, 0)" });
     var radgrad = $$(go.Brush, go.Brush.Radial, { 0: "rgb(240, 240, 240)", 0.3: "rgb(240, 240, 240)", 1: "rgba(240, 240, 240, 0)" });
@@ -81,7 +81,7 @@ CMPAAS.editor = function() {
       if (myDiagram.isModified) {
         if (idx < 0) document.title += "*";
       } else {
-        if (idx >= 0) document.title = document.title.substr(0, idx); 
+        if (idx >= 0) document.title = document.title.substr(0, idx);
       }
     });
 
@@ -93,11 +93,11 @@ CMPAAS.editor = function() {
         $$(go.Shape, "RoundedRectangle",
           // { fill: yellowgrad, stroke: "black",
           { fill: "lightgray", stroke: "black",
-            portId: "", fromLinkable: true, toLinkable: true, cursor: "pointer" }),
+            portId: "", fromLinkable: true, toLinkable: true, cursor: "pointer", name: "SHAPE" }),
         $$(go.TextBlock,
           { font: "bold 10pt helvetica, bold arial, sans-serif",
       margin: 4,
-            editable: true },
+            editable: true, name: "TEXTBLOCK" },
           new go.Binding("text", "text").makeTwoWay())
       );
 
@@ -123,7 +123,7 @@ CMPAAS.editor = function() {
       $$(go.Link,  // the whole link panel
         { curve: go.Link.Bezier,
           adjusting: go.Link.Stretch,
-          reshapable: true 
+          reshapable: true
           //, routing: go.Link.AvoidsNodes
           //, corner: 1
          },
@@ -150,7 +150,7 @@ CMPAAS.editor = function() {
 
   };
 
-  //salva o mapa 
+  //salva o mapa
   public.save = function(){
     var map = serialize();
     console.log(map);
@@ -159,7 +159,7 @@ CMPAAS.editor = function() {
     });
   };
 
-  //carrega o mapa 
+  //carrega o mapa
   public.load = function(){
     $.get('/editor/load/', function(dados){
       console.log(dados);
@@ -236,8 +236,8 @@ function saveMap(){
         }else{
             sd_mapAuthor = 1;
         }
-        
-        
+
+
         var sendInfo = {
             title: sd_mapTitle,
             question: sd_mapQuestion,
@@ -257,7 +257,7 @@ function saveMap(){
                 localStorage.setItem("mapQuestion", data['question']);
                 localStorage.setItem("mapDescrition", data['description']);
                 localStorage.setItem("mapCreatedDate", data['created_date']);
-            },      
+            },
             data: JSON.stringify(sendInfo)
         }).fail(function(response){
 
@@ -265,7 +265,7 @@ function saveMap(){
     ).then(function(){
         var sd_mapId = localStorage.getItem("mapId");
         var sd_mapContent = myDiagram.model.toJson();
-        
+
         sendInfo = {
             map: sd_mapId,
             content: sd_mapContent
@@ -288,13 +288,13 @@ function saveMap(){
                 document.getElementById("btNewMap").disabled = false;
                 document.getElementById("btRemoveVersion").disabled = false;
                 document.getElementById("btRemoveMap").disabled = false;
-            },      
+            },
             data: JSON.stringify(sendInfo)
         }).fail(function(response){
             document.getElementById("information").innerHTML = "Erro ao salvar o Mapa";
             document.getElementById("information").style.display = "inherit";
         })
-        
+
     });
 }
 
@@ -312,5 +312,5 @@ function newMap(){
       localStorage.setItem('unsaved', false);
       localStorage.removeItem('unsavedData');
     }
-    location.reload();    
+    location.reload();
 }
