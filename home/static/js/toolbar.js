@@ -63,9 +63,10 @@ myDiagram.addDiagramListener("ChangedSelection", function() {
   while (it.next()) {
     var node = it.value
     var shape = node.findObject("SHAPE")
-    var fillButton = document.getElementById("fill-icon")
-    console.log(shape.fill)
-    fillButton.style = `background-color: ${shape.fill};`
+    if(shape !== null){
+      var fillButton = document.getElementById("fill-icon")
+      fillButton.style = `background-color: ${shape.fill};`
+    }
   }
 
   });
