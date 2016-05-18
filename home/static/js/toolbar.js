@@ -186,3 +186,13 @@ $(function(){
     });
 
 });
+
+$('.font').on('click', function(){
+  var option = $(this).text();
+  $('#selectedfont').html(option);
+});
+
+
+$('#myDropdown').on('show.bs.dropdown', function () {
+  // do something…
+})
