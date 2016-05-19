@@ -184,13 +184,9 @@ function setFont(newFont, font){
 
   var string = ''
 
-  //console.log(font)
-
   splitedFont.forEach(function(item,index){
 
     var splitedFontStyle = item.split(' ')
-
-    //console.log(splitedFontStyle[splitedFontStyle.length-1])
 
     splitedFontStyle[splitedFontStyle.length-1] = newFont
 
@@ -217,10 +213,6 @@ function setFont(newFont, font){
 
 }
 
-
-
-//console.log(setFont('fontName','bold 10pt helvetica, bold arial, sans-serif'))
-
 $('.font').on('click', function(){
   var option = $(this).text();
 
@@ -237,7 +229,6 @@ $('.font').on('click', function(){
     var textBlock = node.findObject("TEXTBLOCK");
     if (textBlock !== null) {
       textBlock.font = setFont(fontName,textBlock.font)
-      //console.log(textBlock.font)
     }
   }
 
