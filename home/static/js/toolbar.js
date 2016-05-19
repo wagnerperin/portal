@@ -158,9 +158,9 @@ function setFontStyle(style, font, equalStyles){
 
 $(function(){
 
-    var blabla = $('#blabla');
-    blabla.colorpickerplus();
-    blabla.on('changeColor', function(e,color){
+    var inputColor = $('#inputColor');
+    inputColor.colorpickerplus();
+    inputColor.on('changeColor', function(e,color){
   if(color==null) {
     //when select transparent color
     $('.color-fill-icon', $(this)).addClass('colorpicker-color');
