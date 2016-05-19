@@ -318,9 +318,21 @@ myDiagram.addDiagramListener("ChangedSelection", function() {
     if(textBlock !== null){
 
       var fontNames = textBlock.font.split(',')
-      fontNames = fontNames[0].split(' ')
-      var fontId = fontNames[fontNames.length-1]
+      var fontArray = fontNames[0].split(' ')
+      var fontId = fontArray[fontArray.length-1]
       $('#selectedfont').html($(`#${fontId}`).text())
+
+      if(fontArray.length > 1){
+
+        if(fontArray[fontArray.length-2] !== 'italic' && fontArray[fontArray.length-2] !== 'bold'){
+
+          var fontSize = fontArray[fontArray.length-2]
+          fontSize = fontSize.replace('pt','')
+          $('#selectedfontsize').html($(`#${fontSize}`).text())
+
+        }
+
+      }
 
     }
   }
