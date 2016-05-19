@@ -213,6 +213,51 @@ function setFont(newFont, font){
 
 }
 
+function setFontSize(newFontSize, font){
+
+  var splitedFont = font.split(',')
+
+  var returnedFont = ''
+
+  var string = ''
+
+  splitedFont.forEach(function(item,index){
+
+    var splitedFontStyle = item.split(' ')
+
+    if(splitedFontStyle.length > 1){
+
+      if(splitedFontStyle[splitedFontStyle.length-2] !== 'italic' && splitedFontStyle[splitedFontStyle.length-2] !== 'bold'){
+
+        splitedFontStyle[splitedFontStyle.length-2] = `${newFontSize}pt`
+
+      }
+
+    }
+
+    splitedFontStyle.forEach(function(item){
+
+      string += `${item} `
+
+    })
+
+    string = string.trim()
+    item = string
+
+    if(index == splitedFont.length-1){
+      returnedFont += `${item}`
+    } else {
+      returnedFont += `${item}, `
+    }
+
+    string = ''
+
+  })
+
+  return returnedFont
+
+}
+
 $('.font').on('click', function(){
   var option = $(this).text();
 
@@ -233,6 +278,29 @@ $('.font').on('click', function(){
   }
 
   myDiagram.commitTransaction("change font");
+
+});
+
+$('.font-size').on('click', function(){
+  var option = $(this).text();
+
+  var fontSize = this.id
+
+  $('#selectedfontsize').html(option);
+
+  myDiagram.startTransaction("change font size");
+  var it = myDiagram.selection.iterator;
+
+
+  while (it.next()) {
+    var node = it.value;
+    var textBlock = node.findObject("TEXTBLOCK");
+    if (textBlock !== null) {
+      textBlock.font = setFontSize(fontSize,textBlock.font)
+    }
+  }
+
+  myDiagram.commitTransaction("change font size");
 
 });
 

@@ -95,7 +95,7 @@ CMPAAS.editor = function() {
           { fill: "lightgray", stroke: "black",
             portId: "", fromLinkable: true, toLinkable: true, cursor: "pointer", name: "SHAPE" }),
         $$(go.TextBlock,
-          { font: "bold 10pt arial, sans-serif",
+          { font: "bold 10pt arial",
       margin: 4,
             editable: true, name: "TEXTBLOCK" },
           new go.Binding("text", "text").makeTwoWay())
