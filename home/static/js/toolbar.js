@@ -263,8 +263,6 @@ myDiagram.addDiagramListener("ChangedSelection", function() {
       var fontNames = textBlock.font.split(',')
       fontNames = fontNames[0].split(' ')
       var fontId = fontNames[fontNames.length-1]
-      console.log(fontId)
-
       $('#selectedfont').html($(`#${fontId}`).text())
 
     }
