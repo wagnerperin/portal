@@ -187,12 +187,73 @@ $(function(){
 
 });
 
+
+function setFont(newFont, font){
+
+  var splitedFont = font.split(',')
+
+  var returnedFont = ''
+
+  var string = ''
+
+  console.log(font)
+
+  splitedFont.forEach(function(item,index){
+
+    var splitedFontStyle = item.split(' ')
+
+    console.log(splitedFontStyle[splitedFontStyle.length-1])
+
+    splitedFontStyle[splitedFontStyle.length-1] = newFont
+
+    splitedFontStyle.forEach(function(item){
+
+
+      string += `${item} `
+
+
+    })
+
+    string = string.trim()
+    item = string
+
+    if(index == splitedFont.length-1){
+      returnedFont += `${item}`
+    } else {
+      returnedFont += `${item}, `
+    }
+
+    string = ''
+
+  })
+
+  return returnedFont
+
+}
+
+
+
+console.log(setFont('fontName','bold 10pt helvetica, bold arial, sans-serif'))
+
 $('.font').on('click', function(){
   var option = $(this).text();
+
+  var fontName = this.id
+
   $('#selectedfont').html(option);
+
+  myDiagram.startTransaction("change font");
+  var it = myDiagram.selection.iterator;
+
+
+  while (it.next()) {
+    var node = it.value;
+    var textBlock = node.findObject("TEXTBLOCK");
+    if (textBlock !== null) {
+      textBlock.font = setFont(fontName,textBlock.font)
+    }
+  }
+
+  myDiagram.commitTransaction("change font");
+
 });
-
-
-$('#myDropdown').on('show.bs.dropdown', function () {
-  // do something…
-})
