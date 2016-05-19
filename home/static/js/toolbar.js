@@ -57,19 +57,7 @@ underlineButton.addEventListener("click", function() {
   myDiagram.commitTransaction("change font style");
 });
 
-myDiagram.addDiagramListener("ChangedSelection", function() {
 
-  var it = myDiagram.selection.iterator;
-  while (it.next()) {
-    var node = it.value
-    var shape = node.findObject("SHAPE")
-    if(shape !== null){
-      var fillButton = document.getElementById("fill-icon")
-      fillButton.style = `background-color: ${shape.fill};`
-    }
-  }
-
-  });
 
 function equalStyles(style,selectedModels){
 
@@ -251,10 +239,35 @@ $('.font').on('click', function(){
     var textBlock = node.findObject("TEXTBLOCK");
     if (textBlock !== null) {
       textBlock.font = setFont(fontName,textBlock.font)
-      console.log(textBlock.font)
+      //console.log(textBlock.font)
     }
   }
 
   myDiagram.commitTransaction("change font");
+
+});
+
+myDiagram.addDiagramListener("ChangedSelection", function() {
+
+  var it = myDiagram.selection.iterator;
+  while (it.next()) {
+    var node = it.value
+    var shape = node.findObject("SHAPE")
+    var textBlock = node.findObject("TEXTBLOCK")
+    if(shape !== null){
+      var fillButton = document.getElementById("fill-icon")
+      fillButton.style = `background-color: ${shape.fill};`
+    }
+    if(textBlock !== null){
+
+      var fontNames = textBlock.font.split(',')
+      fontNames = fontNames[0].split(' ')
+      var fontId = fontNames[fontNames.length-1]
+      console.log(fontId)
+
+      $('#selectedfont').html($(`#${fontId}`).text())
+
+    }
+  }
 
 });
