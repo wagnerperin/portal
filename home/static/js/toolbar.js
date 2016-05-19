@@ -226,8 +226,6 @@ $('.font').on('click', function(){
 
   var fontName = this.id
 
-  console.log(fontName)
-
   $('#selectedfont').html(option);
 
   myDiagram.startTransaction("change font");
