@@ -32,11 +32,33 @@
                 <button type="button" onClick="circularLayout();">Circular Layout</button>-->
                 <!--<input id="selectionButton" type="color"/>-->
                 <span style="margin-left: 4px;">
+                <div class="btn-group" style="margin-right: 0px;">
+                  <button id="selectedfont" type="button" class="btn btn-default" style="text-align: left; width: 94px;">Arial</button>
+                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <span class="caret"></span>
+                   </button>
+                 <ul class="dropdown-menu">
+                   <li><a class="font" id="arial" href="#">Arial</a></li>
+                   <li><a class="font" id="sans-serif" href="#">Sans-Serif</a></li>
+                   <li><a class="font" id="times" href="#">Times</a></li>
+                 </ul>
+                </div>
+                <div class="btn-group" style="margin-right: 4px;">
+                  <button id="selectedfontsize" type="button" class="btn btn-default" style="text-align: left;">10</button>
+                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <span class="caret"></span>
+                   </button>
+                 <ul class="dropdown-menu fontsize">
+                   <li><a class="font-size" id="10" href="#">10</a></li>
+                   <li><a class="font-size" id="12" href="#">12</a></li>
+                   <li><a class="font-size" id="14" href="#">14</a></li>
+                 </ul>
+                </div>
                 <button id="bold" class="btn btn-default toolbar">B</button>
                 <button id="italic" class="btn btn-default toolbar">I</button>
                 <button id="underline" class="btn btn-default toolbar" style="text-decoration: underline;">S</button>
                 <div class="btn-group btn-group-sm">
-                  <button type="button" class="btn btn-default toolbar" id="blabla" style="width: 49px;"><span id="fill-icon" class="color-fill-icon dropdown-color-fill-icon" style="background-color:#000;"></span>&nbsp;<b class="caret"></b></button>
+                  <button type="button" class="btn btn-default toolbar" id="inputColor" style="width: 49px;"><span id="fill-icon" class="color-fill-icon dropdown-color-fill-icon" style="background-color:#000;"></span>&nbsp;<b class="caret"></b></button>
                 </div>
               </span>
                 <div id="myDiagram" class="editor"></div>

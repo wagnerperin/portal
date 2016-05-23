@@ -57,19 +57,7 @@ underlineButton.addEventListener("click", function() {
   myDiagram.commitTransaction("change font style");
 });
 
-myDiagram.addDiagramListener("ChangedSelection", function() {
 
-  var it = myDiagram.selection.iterator;
-  while (it.next()) {
-    var node = it.value
-    var shape = node.findObject("SHAPE")
-    if(shape !== null){
-      var fillButton = document.getElementById("fill-icon")
-      fillButton.style = `background-color: ${shape.fill};`
-    }
-  }
-
-  });
 
 function equalStyles(style,selectedModels){
 
@@ -170,9 +158,9 @@ function setFontStyle(style, font, equalStyles){
 
 $(function(){
 
-    var blabla = $('#blabla');
-    blabla.colorpickerplus();
-    blabla.on('changeColor', function(e,color){
+    var inputColor = $('#inputColor');
+    inputColor.colorpickerplus();
+    inputColor.on('changeColor', function(e,color){
   if(color==null) {
     //when select transparent color
     $('.color-fill-icon', $(this)).addClass('colorpicker-color');
@@ -184,5 +172,169 @@ $(function(){
         colorButton.dispatchEvent(new Event('input'));
   }
     });
+
+});
+
+
+function setFont(newFont, font){
+
+  var splitedFont = font.split(',')
+
+  var returnedFont = ''
+
+  var string = ''
+
+  splitedFont.forEach(function(item,index){
+
+    var splitedFontStyle = item.split(' ')
+
+    splitedFontStyle[splitedFontStyle.length-1] = newFont
+
+    splitedFontStyle.forEach(function(item){
+
+      string += `${item} `
+
+    })
+
+    string = string.trim()
+    item = string
+
+    if(index == splitedFont.length-1){
+      returnedFont += `${item}`
+    } else {
+      returnedFont += `${item}, `
+    }
+
+    string = ''
+
+  })
+
+  return returnedFont
+
+}
+
+function setFontSize(newFontSize, font){
+
+  var splitedFont = font.split(',')
+
+  var returnedFont = ''
+
+  var string = ''
+
+  splitedFont.forEach(function(item,index){
+
+    var splitedFontStyle = item.split(' ')
+
+    if(splitedFontStyle.length > 1){
+
+      if(splitedFontStyle[splitedFontStyle.length-2] !== 'italic' && splitedFontStyle[splitedFontStyle.length-2] !== 'bold'){
+
+        splitedFontStyle[splitedFontStyle.length-2] = `${newFontSize}pt`
+
+      }
+
+    }
+
+    splitedFontStyle.forEach(function(item){
+
+      string += `${item} `
+
+    })
+
+    string = string.trim()
+    item = string
+
+    if(index == splitedFont.length-1){
+      returnedFont += `${item}`
+    } else {
+      returnedFont += `${item}, `
+    }
+
+    string = ''
+
+  })
+
+  return returnedFont
+
+}
+
+$('.font').on('click', function(){
+  var option = $(this).text();
+
+  var fontName = this.id
+
+  $('#selectedfont').html(option);
+
+  myDiagram.startTransaction("change font");
+  var it = myDiagram.selection.iterator;
+
+
+  while (it.next()) {
+    var node = it.value;
+    var textBlock = node.findObject("TEXTBLOCK");
+    if (textBlock !== null) {
+      textBlock.font = setFont(fontName,textBlock.font)
+    }
+  }
+
+  myDiagram.commitTransaction("change font");
+
+});
+
+$('.font-size').on('click', function(){
+  var option = $(this).text();
+
+  var fontSize = this.id
+
+  $('#selectedfontsize').html(option);
+
+  myDiagram.startTransaction("change font size");
+  var it = myDiagram.selection.iterator;
+
+
+  while (it.next()) {
+    var node = it.value;
+    var textBlock = node.findObject("TEXTBLOCK");
+    if (textBlock !== null) {
+      textBlock.font = setFontSize(fontSize,textBlock.font)
+    }
+  }
+
+  myDiagram.commitTransaction("change font size");
+
+});
+
+myDiagram.addDiagramListener("ChangedSelection", function() {
+
+  var it = myDiagram.selection.iterator;
+  while (it.next()) {
+    var node = it.value
+    var shape = node.findObject("SHAPE")
+    var textBlock = node.findObject("TEXTBLOCK")
+    if(shape !== null){
+      var fillButton = document.getElementById("fill-icon")
+      fillButton.style = `background-color: ${shape.fill};`
+    }
+    if(textBlock !== null){
+
+      var fontNames = textBlock.font.split(',')
+      var fontArray = fontNames[0].split(' ')
+      var fontId = fontArray[fontArray.length-1]
+      $('#selectedfont').html($(`#${fontId}`).text())
+
+      if(fontArray.length > 1){
+
+        if(fontArray[fontArray.length-2] !== 'italic' && fontArray[fontArray.length-2] !== 'bold'){
+
+          var fontSize = fontArray[fontArray.length-2]
+          fontSize = fontSize.replace('pt','')
+          $('#selectedfontsize').html($(`#${fontSize}`).text())
+
+        }
+
+      }
+
+    }
+  }
 
 });
